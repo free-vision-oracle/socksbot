@@ -1,0 +1,32 @@
+states
+	solicit players
+		say something when people mention activities, boredom, etc.
+	start game / info page
+		!help
+			the bot displays a link to rummy rules, and a list of commands
+		!join / !me
+			adds user to game
+		!begin / !start
+			the bot dispenses and DMs seven cards to each player
+			and displays the discard
+	wait for player
+		!draw discard / !draw deck
+			draw a card from the discard or deck
+		!meld / !play / !layoff / etc
+			player specifies cards to put on the table
+		!look
+			display all of the cards on the table
+		!scores / !leaderboard / !ranks
+			displays current score and overall position
+		!discard
+			discards a card and ends the player's turn
+		!quit / !qq
+			indicates to the bot that the player wishes to be removed from the game
+			this is also called when a player takes to long to play
+	conclude game / display stats
+		when a player goes out, the bot congratulates the winner.
+		the bot then calls !look and !scores before proffering:
+		!again
+			start game with the same players
+		!restart
+			re-initialize the game
