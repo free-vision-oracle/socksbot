@@ -34,11 +34,11 @@ async def on_ready():
 
 @bot.command()
 async def roll(ctx, dice: str):
-    """Rolls a dice in NdN format."""
+    """rolls a dice"""
     try:
         rolls, limit = map(int, dice.split('d'))
     except Exception:
-        await ctx.send('Format has to be in NdN!')
+        await ctx.send('```.roll <int>n<int>```')
         return
 
     result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
@@ -46,7 +46,10 @@ async def roll(ctx, dice: str):
 
 @bot.command()
 async def choose(ctx, *args):
-    """Chooses between multiple choices."""
+    """chooses between multiple choices"""
+    if not args:
+        await ctx.send("```.choose this OR that```")
+        return
     choices = re.match("\.choose (.*)", ctx.message.content).groups()[0]
     choices = choices.split(" OR ")
     if len(choices):
@@ -54,11 +57,12 @@ async def choose(ctx, *args):
 
 @bot.command()
 async def shouldi(ctx, *args):
+    """ask yes or no questions"""
     await ctx.reply(random.choice(["yes", "maybe", "no"]))
 
 @bot.command()
 async def freevision(ctx, *args):
-    """Stripped down version of the Free Vision Oracle"""
+    """free vision oracle"""
     if query := re.match("\.freevision (.*)", ctx.message.content):
         query = query.groups()[0]
         reply = f"```diff\n-{query}\n" + "\n".join([f"-•{position}: {card}" for position, card in zip(positions, getCards(3))]) + "```"
@@ -68,11 +72,23 @@ async def freevision(ctx, *args):
 
 @bot.command()
 async def role(ctx, *args):
+    """displays a user's top role"""
     result = ""
     for user in ctx.message.mentions:
         result = result + f"{user.name}'s top role is: {user.top_role.name}"
     if not result:
         result = f"{ctx.message.author.name}'s top role is {ctx.message.author.top_role.name}"
     await ctx.send(result)
+
+@bot.command()
+async def smokin(ctx):
+    """indicates you're smoking something"""
+    verb = random.choice(["blazing", "atomizing", "re-imagining", "really considering", "fully integrating"])
+    adjective = random.choice(["seriously impressive", "actually insane", "actual", "of that good good", "for real", "mother fucking"])
+    if match := re.match("\.smokin (.*)", ctx.message.content):
+        await ctx.send(f"{ctx.message.author.display_name} is {verb} some {adjective} {match.groups()[0]}")
+    else:
+        noun = random.choice(["business", "secret shit", "goodness", "brain realignment"])
+        await ctx.send(f"{ctx.message.author.display_name} is {verb} some {adjective} {noun}")
 
 bot.run('')
