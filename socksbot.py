@@ -1,5 +1,3 @@
-# This example requires the 'members' privileged intents
-
 import discord
 from discord.ext import commands
 import random
@@ -14,8 +12,6 @@ with open("cards.csv") as fh:
     deck = fh.read().split(",")
 
 positions = ["thinking","feeling","doing"]
-
-mention_pattern = ".* "
 
 bot = commands.Bot(command_prefix='.', description=description, intents=intents)
 
@@ -32,6 +28,14 @@ async def on_ready():
     print(f"my name is {bot.user.name}#{bot.user.id} and i'm here to say")
     print("something that rhymes with my name")
 
+@bot.event
+async def on_message(message):
+    if not message.author == bot.user:
+        if name := re.match(".*[Ss]ocks.*", message.author.display_name):
+            if re.match("love me", message.content):
+                await message.reply("love socks")
+    await bot.process_commands(message)
+
 @bot.command()
 async def roll(ctx, dice: str):
     """rolls a dice"""
@@ -44,7 +48,7 @@ async def roll(ctx, dice: str):
     result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
     await ctx.send(result)
 
-@bot.command()
+@bot.command(usage="this OR that")
 async def choose(ctx, *args):
     """chooses between multiple choices"""
     if not args:
@@ -55,12 +59,12 @@ async def choose(ctx, *args):
     if len(choices):
         await ctx.send(random.choice(choices))
 
-@bot.command()
+@bot.command(usage="do a thing")
 async def shouldi(ctx, *args):
     """ask yes or no questions"""
     await ctx.reply(random.choice(["yes", "maybe", "no"]))
 
-@bot.command()
+@bot.command(usage="query")
 async def freevision(ctx, *args):
     """free vision oracle"""
     if query := re.match("\.freevision (.*)", ctx.message.content):
@@ -70,7 +74,7 @@ async def freevision(ctx, *args):
     else:
         await ctx.send("https://free-vision-oracle.neocities.org\n```.freevision <query>```")
 
-@bot.command()
+@bot.command(usage="@mention")
 async def role(ctx, *args):
     """displays a user's top role"""
     result = ""
@@ -80,7 +84,7 @@ async def role(ctx, *args):
         result = f"{ctx.message.author.name}'s top role is {ctx.message.author.top_role.name}"
     await ctx.send(result)
 
-@bot.command()
+@bot.command(usage="noun", aliases=["smoking"])
 async def smokin(ctx):
     """indicates you're smoking something"""
     verb = random.choice(["blazing", "atomizing", "re-imagining", "really considering", "fully integrating"])
