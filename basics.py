@@ -1,7 +1,9 @@
 import discord
 from discord.ext import commands
 import random
+import itertools
 import re
+
 
 class Basics(commands.Cog):
     def __init__(self, bot):
@@ -11,7 +13,6 @@ class Basics(commands.Cog):
         with open("cards.csv") as fh:
             self.deck = fh.read().split(",")
         self.positions = ["thinking","feeling","doing"]
-
 
     def getCards(self, count: int):
         cards = [n for n in self.deck]
@@ -88,7 +89,7 @@ class Basics(commands.Cog):
         if match := re.match("\.smokin (.*)", ctx.message.content):
             await ctx.send(f"{ctx.message.author.display_name} is {verb} some {adjective} {match.groups()[0]}")
         else:
-            noun = random.choice(["business", "secret shit", "goodness", "brain realignment"])
+            noun = random.choice(["chronic","good shit", "business", "secret shit", "goodness", "brain realignment"])
             await ctx.send(f"{ctx.message.author.display_name} is {verb} some {adjective} {noun}")
 
 def setup(bot):

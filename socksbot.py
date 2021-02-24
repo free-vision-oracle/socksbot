@@ -15,7 +15,7 @@ positions = ["thinking","feeling","doing"]
 
 bot = commands.Bot(command_prefix='.', description=description, intents=intents)
 
-extensions = ["basics", "rummy", "youtube"]
+extensions = ["basics", "spades", "youtube"]
 for e in extensions:
     bot.load_extension(e)
 

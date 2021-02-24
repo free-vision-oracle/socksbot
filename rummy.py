@@ -20,6 +20,9 @@ class Rummy(commands.Cog):
         self.turn = -1
         self.queue = []
 
+    async def cog_check(self, ctx):
+
+
     @commands.guild_only()
     @commands.command(usage="")
     async def join(self, ctx, *args):
@@ -69,7 +72,7 @@ class Rummy(commands.Cog):
     @commands.command(usage="")
     async def rules(self, ctx, *args):
         """displays a summary of the game's rules"""
-        await ctx.send("basically like this:\nhttps://bicyclecards.com/how-to-play/rummy-rum/\nbut jailhouse style.")
+        await ctx.send("basically like this:\nhttps://bicyclecards.com/how-to-play/rummy-rum/\nonly jailhouse style.")
     @commands.guild_only()
     @commands.command()
     async def start(self, ctx, *args):

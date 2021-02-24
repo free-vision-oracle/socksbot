@@ -1,0 +1,23 @@
+the setup
+    two teams of two players in interleaved order
+
+the deal
+    the first player is determined by drawing for high card
+    the entire deck is dealt to the players
+    each player arranges their cards by suit
+
+the bidding
+    each player looks at their cards and bids the number of books/tricks they think they'll win
+
+the play
+    the first player leads with whatever they want this is jail
+    each player plays something in the same suit, a spade if they can't, or anything but it doesn't count
+    if there is a trump, the highest one wins. if not, the highest rank in the suit that led wins
+    the person that won the book/trick starts the next book/trick
+    the hand concludes when everyone has played all of their cards.
+
+the scoring
+    each player:
+        if the player won more books/tricks than they bid, they are awarded as many points as they bid
+        if the player won less books/tricks than they bid, the difference is substracted from their overall score.
+    first to 25 points wins
