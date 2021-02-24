@@ -75,4 +75,4 @@ async def role(ctx, *args):
         result = f"{ctx.message.author.name}'s top role is {ctx.message.author.top_role.name}"
     await ctx.send(result)
 
-bot.run('ODEyODcyMTk3OTM2OTA2MjYy.YDHEOg.UEekRKVJRe4Aknq2ohuhqCFNV4s')
+bot.run('')
