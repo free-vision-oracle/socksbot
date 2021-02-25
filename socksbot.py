@@ -6,6 +6,7 @@ import re
 description = '''love socks'''
 
 intents = discord.Intents.default()
+intents.reactions = True
 
 deck = []
 with open("cards.csv") as fh:
@@ -15,7 +16,7 @@ positions = ["thinking","feeling","doing"]
 
 bot = commands.Bot(command_prefix='.', description=description, intents=intents)
 
-extensions = ["basics", "spades", "youtube"]
+extensions = ["basics", "spades", "youtube", "test"]
 for e in extensions:
     bot.load_extension(e)
 

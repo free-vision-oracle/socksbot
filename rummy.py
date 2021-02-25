@@ -21,7 +21,7 @@ class Rummy(commands.Cog):
         self.queue = []
 
     async def cog_check(self, ctx):
-
+        
 
     @commands.guild_only()
     @commands.command(usage="")

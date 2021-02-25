@@ -21,3 +21,4 @@ the scoring
         if the player won more books/tricks than they bid, they are awarded as many points as they bid
         if the player won less books/tricks than they bid, the difference is substracted from their overall score.
     first to 25 points wins
+
