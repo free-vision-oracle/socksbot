@@ -30,6 +30,12 @@ class Basics(commands.Cog):
                     await message.reply("yes, love socks")
                 elif re.match("love me\.?", message.content):
                     await message.reply("love socks")
+            if message.guild.owner_id == message.author.id:
+                if match := re.fullmatch("guys", message.content.lower()):
+                    # brain is on turtle mode
+                    for role in message.guild.roles:
+                        if role.name == "guys":
+                            await message.channel.send(role.mention)
 
     @commands.command(usage="<number>")
     async def d(self, ctx, *args):
@@ -85,12 +91,13 @@ class Basics(commands.Cog):
     async def smokin(self, ctx):
         """indicates you're smoking something"""
         verb = random.choice(["blazing", "atomizing", "re-imagining", "really considering", "fully integrating"])
-        adjective = random.choice(["seriously impressive", "actually insane", "actual", "of that good good", "for real", "mother fucking"])
-        if match := re.match("\.smokin (.*)", ctx.message.content):
-            await ctx.send(f"{ctx.message.author.display_name} is {verb} some {adjective} {match.groups()[0]}")
+        adjective = random.choice(["seriously impressive", "actually insane", "actual", "of that good good", "for real", "mother fucking", "dang ol'"])
+        amount = random.choice(["hella", "some", "so much"])
+        if match := re.match("\.smoking? (.*)", ctx.message.content):
+            await ctx.send(f"{ctx.message.author.display_name} is {verb} {amount} {adjective} {match.groups()[0]}")
         else:
-            noun = random.choice(["chronic","good shit", "business", "secret shit", "goodness", "brain realignment"])
-            await ctx.send(f"{ctx.message.author.display_name} is {verb} some {adjective} {noun}")
+            noun = random.choice(["chronic","good shit", "business", "secret shit", "goodness", "mind realigner", "brain adjuster", "bad brain buffer"])
+            await ctx.send(f"{ctx.message.author.display_name} is {verb} {amount} {adjective} {noun}")
 
 def setup(bot):
     bot.add_cog(Basics(bot))

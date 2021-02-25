@@ -50,18 +50,20 @@ class Youtube(commands.Cog):
             if query.message.id == payload.message_id:
                 if payload.emoji.name in cool_emojis:
                     await query.message.edit(content=query.links[cool_emojis.index(payload.emoji.name)][1])
+                    await query.message.clear_reactions()
                     del self.openQueries[payload.user_id]
 
     @commands.command(usage="query", aliases=["youtube"])
     async def yt(self, ctx, *args):
         """searches youtube"""
         user = ctx.message.author
-        if match := re.match("\.(.*) (.*)", ctx.message.content):
+        if match := re.match("\.(yt|youtube) (.*)", ctx.message.content):
             query = match.groups()[1]
             if user.id in self.openQueries:
                 # i feel like there is a lot wrong with what i am doing here.
-                await self.openQueries[user.id].message.edit(content=f"cancelled youtube query by {user.display_name}")
-                await self.openQueries[user.id].message.clear_reactions()
+                message = self.openQueries[user.id].message
+                await message.edit(content=f"cancelled youtube query by {user.display_name}")
+                await message.clear_reactions()
                 del self.openQueries[user.id]
             if results := get_videos(query):
                 links = []

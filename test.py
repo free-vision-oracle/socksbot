@@ -8,7 +8,7 @@ class Test(commands.Cog):
     @commands.command()
     async def test(self, ctx, *args):
         """a simple test"""
-        ctx.message.reply("hello!")
+        await ctx.message.reply("hello!")
         
 
 def setup(bot):

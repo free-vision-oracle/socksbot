@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import has_permissions
 import random
 import re
 
@@ -25,14 +26,16 @@ async def on_ready():
     print(f"my name is {bot.user.name} and i'm here to say, something that rhymes with my name!")
 
 @bot.command()
+@has_permissions(administrator=True)
 async def reload(ctx, *args):
     """reload extensions"""
-    if ctx.author.top_role.name == "egg layers" or ctx.author.top_role.name == "The Socks":
-        if match := re.match("\.reload (.*)", ctx.message.content):
-            if match.groups()[0] in extensions:
-                bot.reload_extension(match.groups()[0])
-                await ctx.reply("🐣")
-                return
+    if match := re.match("\.reload (.*)", ctx.message.content):
+        match = match.groups()[0]
+        if match in extensions:
+            bot.reload_extension(match)
+            print(f"{ctx.message.author.display_name} reloaded {match}")
+            await ctx.reply("🐣")
+            return
     await ctx.reply("🥚")
 
 bot.run('')
