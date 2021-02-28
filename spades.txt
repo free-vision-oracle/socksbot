@@ -22,3 +22,33 @@ the scoring
         if the player won less books/tricks than they bid, the difference is substracted from their overall score.
     first to 25 points wins
 
+
+~joining~
+kevin: .join @xp
+bot: waiting for xp and two others
+xp: .join @someoneElse
+bot: hope that was intentional cause i just dropped kevin
+xp: .quit
+bot: xp quit
+xp: .join @kevin
+bot: waiting for kevin and two others
+kevin: .join @xp
+bot: kevin and xp are team A. need two more players
+taint: .join @socks
+bot: waiting for socks!
+socks: .join @taint
+bot: 
+    the teams are kevin + xp & socks + taint!
+    the turn order is
+        socks
+        kevin
+        taint
+        xp
+    @socks lead by .play
+
+.join conditions
+    mentioning nobody or a bunch of people
+    mentioning a free user
+    mentioning a user that has chosen user
+    mentioning a user that is already taken
+    mentioning someone after joining

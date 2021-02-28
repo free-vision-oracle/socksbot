@@ -6,6 +6,8 @@ from html import unescape
 from json import loads
 import re
 
+""" this explodes if you delete a post it is fucking with """
+
 cool_emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
 
 def get_videos(search_phrase: str):
@@ -52,6 +54,11 @@ class Youtube(commands.Cog):
                     await query.message.edit(content=query.links[cool_emojis.index(payload.emoji.name)][1])
                     await query.message.clear_reactions()
                     del self.openQueries[payload.user_id]
+
+    @commands.Cog.listener()
+    async def on_raw_message_delete(self, payload):
+        if payload.cached_message.author.id in self.openQueries:
+            del self.openQueries[payload.cached_message.author.id]
 
     @commands.command(usage="query", aliases=["youtube"])
     async def yt(self, ctx, *args):

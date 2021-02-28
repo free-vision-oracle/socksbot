@@ -25,17 +25,21 @@ class Basics(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if not message.author == self.bot.user:
+            # LOVE SOCKS
             if name := re.match(".*[Ss]ocks.*", message.author.display_name):
                 if re.match("love me\?", message.content):
                     await message.reply("yes, love socks")
                 elif re.match("love me\.?", message.content):
                     await message.reply("love socks")
+            # GUYS
             if message.guild.owner_id == message.author.id:
                 if match := re.fullmatch("guys", message.content.lower()):
-                    # brain is on turtle mode
                     for role in message.guild.roles:
                         if role.name == "guys":
                             await message.channel.send(role.mention)
+            # I DID A SHIT
+            if match := re.fullmatch("i did a shit\.?", message.content):
+                await message.reply("💩")
 
     @commands.command(usage="<number>")
     async def d(self, ctx, *args):
@@ -62,7 +66,7 @@ class Basics(commands.Cog):
         if len(choices):
             await ctx.send(random.choice(choices))
 
-    @commands.command(usage="do a thing")
+    @commands.command(usage="<just one thing>")
     async def shouldi(self, ctx, *args):
         """ask yes or no questions"""
         await ctx.reply(random.choice(["yes", "maybe", "no"]))
@@ -77,16 +81,6 @@ class Basics(commands.Cog):
         else:
             await ctx.send("https://free-vision-oracle.neocities.org\n```.freevision <query>```")
 
-    @commands.command(usage="@mention")
-    async def role(self, ctx, *args):
-        """displays a user's top role"""
-        result = ""
-        for user in ctx.message.mentions:
-            result = result + f"{user.name}'s top role is: {user.top_role.name}"
-        if not result:
-            result = f"{ctx.message.author.name}'s top role is {ctx.message.author.top_role.name}"
-        await ctx.send(result)
-
     @commands.command(usage="<noun>", aliases=["smoking"])
     async def smokin(self, ctx):
         """indicates you're smoking something"""
@@ -96,8 +90,19 @@ class Basics(commands.Cog):
         if match := re.match("\.smoking? (.*)", ctx.message.content):
             await ctx.send(f"{ctx.message.author.display_name} is {verb} {amount} {adjective} {match.groups()[0]}")
         else:
-            noun = random.choice(["chronic","good shit", "business", "secret shit", "goodness", "mind realigner", "brain adjuster", "bad brain buffer"])
+            noun = random.choice(["chronic","good shit", "dank", "secret shit", "goodness", "mind realigner", "brain adjuster"])
             await ctx.send(f"{ctx.message.author.display_name} is {verb} {amount} {adjective} {noun}")
+
+    @commands.command(name="8ball", usage="<query>")
+    async def eightball(self, ctx):
+        """consult the classic oracle"""
+        phrase = random.choice([" As I see it, yes."," Ask again later."," Better not tell you now."," Cannot predict now."," Concentrate and ask again."," Don’t count on it."," It is certain."," It is decidedly so."," Most likely."," My reply is no."," My sources say no."," Outlook not so good."," Outlook good."," Reply hazy, try again."," Signs point to yes."," Very doubtful."," Without a doubt."," Yes."," Yes – definitely."," You may rely on it."])
+        await ctx.message.reply(phrase)
+
+    @commands.command(usage="", aliases=["pooping"])
+    async def poopin(self, ctx):
+        """BWAMP"""
+        await ctx.send(f"💩")
 
 def setup(bot):
     bot.add_cog(Basics(bot))

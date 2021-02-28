@@ -3,11 +3,14 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions
 import random
 import re
+import traceback
 
 description = '''love socks'''
 
 intents = discord.Intents.default()
+intents.messages = True
 intents.reactions = True
+intents.members = True
 
 deck = []
 with open("cards.csv") as fh:
@@ -17,9 +20,12 @@ positions = ["thinking","feeling","doing"]
 
 bot = commands.Bot(command_prefix='.', description=description, intents=intents)
 
-extensions = ["basics", "spades", "youtube", "test"]
+extensions = ["admin", "basics", "youtube", "test"]
 for e in extensions:
-    bot.load_extension(e)
+    try:
+        bot.load_extension(e)
+    except Exception:
+        traceback.print_exc()
 
 @bot.event
 async def on_ready():
